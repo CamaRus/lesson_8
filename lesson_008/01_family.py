@@ -75,10 +75,6 @@ class Husband(Man):
 
     def __init__(self, name):
         super().__init__(name=name)
-        # self.House = home
-        # self.name = name
-        # self.fullness = 30
-        # self.happiness = 100
 
     def __str__(self):
         return super().__str__()
@@ -92,7 +88,7 @@ class Husband(Man):
             cprint('{} умер от депрессии'.format(self.name), color='red')
         elif self.House.money <= 350 and self.fullness >= 15:
             self.work()
-        elif self.fullness < 20 and self.House.food > 0:
+        elif self.fullness < 15 and self.House.food > 0:
             self.eat()
         elif self.happiness <= 10 and self.fullness >= 10:
             self.gaming()
@@ -128,10 +124,6 @@ class Wife(Man):
 
     def __init__(self, name):
         super().__init__(name=name)
-        # self.House = home
-        # self.name = name
-        # self.fullness = 30
-        # self.happiness = 100
 
     def __str__(self):
         return super().__str__()
@@ -141,10 +133,8 @@ class Wife(Man):
             cprint('{} умер от голода'.format(self.name), color='red')
         elif self.happiness <= 0:
             cprint('{} умер от депрессии'.format(self.name), color='red')
-        elif self.fullness < 20 and self.House.food > 0:
+        elif self.fullness <= 10 and self.House.food > 0:
             self.eat()
-        # elif self.happiness <= 20:
-        #     self.clean_house()
         elif self.House.dirt > 150:
             self.clean_house()
         elif self.House.food < 20 and self.fullness >= 10:
@@ -197,10 +187,9 @@ for day in range(365):
     cprint(serge, color='cyan')
     cprint(masha, color='cyan')
     cprint(home, color='cyan')
-
-cprint('Всего заработано {}'.format(House.money), color='blue')
-cprint('Всего съедено еды {}'.format(House.foods), color='blue')
-cprint('Всего куплено шуб {}'.format(House.fur_coat), color='blue')
+    cprint('Всего заработано {}'.format(House.money), color='blue')
+    cprint('Всего съедено еды {}'.format(House.foods), color='blue')
+    cprint('Всего куплено шуб {}'.format(House.fur_coat), color='blue')
 
 # TODO после реализации первой части - отдать на проверку учителю
 
