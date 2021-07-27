@@ -158,8 +158,9 @@ class Wife(Man):
         cprint('{} поела'.format(self.name), color='blue')
 
     def shopping(self):
-        self.House.money -= 10
-        self.House.food += 30
+        z = randint(5, 30)
+        self.House.food += z
+        self.House.money -= z
         self.fullness -= 10
         cprint('{} сходила в магазин'.format(self.name), color='blue')
 
@@ -187,9 +188,9 @@ for day in range(365):
     cprint(serge, color='cyan')
     cprint(masha, color='cyan')
     cprint(home, color='cyan')
-    cprint('Всего заработано {}'.format(House.money), color='blue')
-    cprint('Всего съедено еды {}'.format(House.foods), color='blue')
-    cprint('Всего куплено шуб {}'.format(House.fur_coat), color='blue')
+cprint('Всего заработано {}'.format(House.money), color='green')
+cprint('Всего съедено еды {}'.format(House.foods), color='green')
+cprint('Всего куплено шуб {}'.format(House.fur_coat), color='green')
 
 # TODO после реализации первой части - отдать на проверку учителю
 
