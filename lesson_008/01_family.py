@@ -55,8 +55,8 @@ class House:
         self.cat_food = 30
 
     def __str__(self):
-        return 'Денег - {}, еды - {}, грязи - {}'.format(
-            self.money, self.food, self.dirt)
+        return 'Денег - {}, еды - {}, грязи - {}, еды для кота - {}'.format(
+            self.money, self.food, self.dirt, self.cat_food)
 
 
 class Man(House):
@@ -96,7 +96,7 @@ class Husband(Man):
             self.eat()
         elif self.happiness <= 10 and self.fullness >= 10:
             self.gaming()
-        elif self.House.dirt > 90:
+        if self.House.dirt > 90:
             self.happiness -= 10
 
     # noinspection DuplicatedCode,PyStatementEffect
@@ -108,7 +108,7 @@ class Husband(Man):
             House.foods += x
         else:
             self.fullness += self.House.food
-            self.House.food == 0
+            self.House.food = 0
             House.foods += self.House.food
         cprint('{} поел'.format(self.name), color='blue')
 
@@ -141,11 +141,13 @@ class Wife(Man):
             self.eat()
         elif self.House.dirt > 150:
             self.clean_house()
-        elif self.House.food < 20 and self.fullness >= 10:
+        elif self.House.food < 40 and self.fullness >= 10:
             self.shopping()
         elif self.happiness <= 20 and self.House.money >= 350:
             self.buy_fur_coat()
-        elif self.House.dirt > 90:
+        elif self.House.cat_food < 30:
+            self.buy_cat_food()
+        if self.House.dirt > 90:
             self.happiness -= 10
 
     # noinspection DuplicatedCode,PyStatementEffect
@@ -157,12 +159,12 @@ class Wife(Man):
             House.foods += y
         else:
             self.fullness += self.House.food
-            self.House.food == 0
+            self.House.food = 0
             House.foods += self.House.food
         cprint('{} поела'.format(self.name), color='blue')
 
     def shopping(self):
-        z = randint(5, 30)
+        z = 60
         self.House.food += z
         self.House.money -= z
         self.fullness -= 10
@@ -181,9 +183,9 @@ class Wife(Man):
         cprint('{} убралась в доме'.format(self.name), color='blue')
 
     def buy_cat_food(self):
-        o = randint(5, 30)
-        self.cat_food += o
-        self.House.money -= o
+        self.House.cat_food += 50
+        self.House.money -= 30
+        cprint('{} купила еду для кота'.format(self.name), color='blue')
 
 
 
@@ -229,11 +231,15 @@ class Wife(Man):
 # Если кот дерет обои, то грязи становится больше на 5 пунктов
 
 
+# noinspection PyStatementEffect
 class Cat(Man):
 
     def __init__(self, name):
         super().__init__(name=name)
-        self.happiness = None
+        # self.happiness = None
+
+    def __str__(self):
+        return super().__str__()
 
     def act(self):
         if self.fullness <= 0:
@@ -247,15 +253,22 @@ class Cat(Man):
 
     def eat(self):
         i = randint(1, 10)
-        self.fullness += i * 2
-        self.House.cat_food -= i
+        if i < self.House.cat_food:
+            self.fullness += i * 2
+            self.House.cat_food -= i
+        else:
+            self.fullness += self.House.cat_food
+            self.House.cat_food = 0
+        cprint('{} поел'.format(self.name), color='blue')
 
     def sleep(self):
         self.fullness -= 10
+        cprint('{} поспал'.format(self.name), color='blue')
 
     def soil(self):
         self.fullness -= 10
         self.House.dirt += 5
+        cprint('{} драл обои'.format(self.name), color='blue')
 
 
 
@@ -272,7 +285,7 @@ class Cat(Man):
 
 class Child(Man):
 
-    def __init__(self):
+    def __init__(self, name):
         super().__init__(name=name)
         self.happiness = 100
 
@@ -297,7 +310,7 @@ class Child(Man):
         else:
             self.fullness += self.House.food
             # noinspection PyStatementEffect
-            self.House.food == 0
+            self.House.food = 0
             House.foods += self.House.food
         cprint('{} поел'.format(self.name), color='blue')
 
@@ -322,17 +335,17 @@ masha = Wife(name='Маша')
 kolya = Child(name='Коля')
 murzik = Cat(name='Мурзик')
 #
-# for day in range(365):
-#     cprint('================== День {} =================='.format(day), color='red')
-#     serge.act()
-#     masha.act()
-#     kolya.act()
-#     murzik.act()
-#     cprint(serge, color='cyan')
-#     cprint(masha, color='cyan')
-#     cprint(kolya, color='cyan')
-#     cprint(murzik, color='cyan')
-
+for day in range(365):
+    cprint('================== День {} =================='.format(day), color='red')
+    serge.act()
+    masha.act()
+    kolya.act()
+    murzik.act()
+    cprint(serge, color='cyan')
+    cprint(masha, color='cyan')
+    cprint(kolya, color='cyan')
+    cprint(murzik, color='cyan')
+    cprint(home, color='cyan')
 # Усложненное задание (делать по желанию)
 #
 # Сделать из семьи любителей котов - пусть котов будет 3, или даже 5-10.
