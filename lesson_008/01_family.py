@@ -187,20 +187,20 @@ class Wife(Man):
 
 
 
-home = House()
-serge = Husband(name='Сережа')
-masha = Wife(name='Маша')
-
-for day in range(365):
-    cprint('================== День {} =================='.format(day), color='red')
-    serge.act()
-    masha.act()
-    cprint(serge, color='cyan')
-    cprint(masha, color='cyan')
-    cprint(home, color='cyan')
-cprint('Всего заработано {}'.format(House.money), color='green')
-cprint('Всего съедено еды {}'.format(House.foods), color='green')
-cprint('Всего куплено шуб {}'.format(House.fur_coat), color='green')
+# home = House()
+# serge = Husband(name='Сережа')
+# masha = Wife(name='Маша')
+#
+# for day in range(365):
+#     cprint('================== День {} =================='.format(day), color='red')
+#     serge.act()
+#     masha.act()
+#     cprint(serge, color='cyan')
+#     cprint(masha, color='cyan')
+#     cprint(home, color='cyan')
+# cprint('Всего заработано {}'.format(House.money), color='green')
+# cprint('Всего съедено еды {}'.format(House.foods), color='green')
+# cprint('Всего куплено шуб {}'.format(House.fur_coat), color='green')
 
 # TODO после реализации первой части - отдать на проверку учителю
 
@@ -316,11 +316,11 @@ class Child(Man):
 # отправить на проверку учителем.
 
 
-# home = House()
-# serge = Husband(name='Сережа')
-# masha = Wife(name='Маша')
-# kolya = Child(name='Коля')
-# murzik = Cat(name='Мурзик')
+home = House()
+serge = Husband(name='Сережа')
+masha = Wife(name='Маша')
+kolya = Child(name='Коля')
+murzik = Cat(name='Мурзик')
 #
 # for day in range(365):
 #     cprint('================== День {} =================='.format(day), color='red')
