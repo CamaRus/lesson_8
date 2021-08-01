@@ -52,6 +52,7 @@ class House:
         self.money = 100
         self.food = 50
         self.dirt = 0
+        self.cat_food = 30
 
     def __str__(self):
         return 'Денег - {}, еды - {}, грязи - {}'.format(
@@ -69,6 +70,9 @@ class Man(House):
     def __str__(self):
         return 'Я - {}, сытость {}, счастье {}'.format(
             self.name, self.fullness, self.happiness)
+
+    def pet_the_cat(self):
+        self.fullness += 5
 
 
 class Husband(Man):
@@ -176,6 +180,12 @@ class Wife(Man):
         self.fullness -= 10
         cprint('{} убралась в доме'.format(self.name), color='blue')
 
+    def buy_cat_food(self):
+        o = randint(5, 30)
+        self.cat_food += o
+        self.House.money -= o
+
+
 
 home = House()
 serge = Husband(name='Сережа')
@@ -219,22 +229,34 @@ cprint('Всего куплено шуб {}'.format(House.fur_coat), color='gree
 # Если кот дерет обои, то грязи становится больше на 5 пунктов
 
 
-# class Cat:
-#
-#     def __init__(self):
-#         pass
-#
-#     def act(self):
-#         pass
-#
-#     def eat(self):
-#         pass
-#
-#     def sleep(self):
-#         pass
-#
-#     def soil(self):
-#         pass
+class Cat(Man):
+
+    def __init__(self, name):
+        super().__init__(name=name)
+        self.happiness = None
+
+    def act(self):
+        if self.fullness <= 0:
+            cprint('{} умер от голода'.format(self.name), color='red')
+        elif self.fullness <= 10 and self.House.cat_food > 0:
+            self.eat()
+        elif self.fullness >= 30:
+            self.sleep()
+        else:
+            self.soil()
+
+    def eat(self):
+        i = randint(1, 10)
+        self.fullness += i * 2
+        self.House.cat_food -= i
+
+    def sleep(self):
+        self.fullness -= 10
+
+    def soil(self):
+        self.fullness -= 10
+        self.House.dirt += 5
+
 
 
 ######################################################## Часть вторая бис
