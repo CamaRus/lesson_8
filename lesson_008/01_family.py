@@ -248,22 +248,40 @@ cprint('Всего куплено шуб {}'.format(House.fur_coat), color='gree
 # отличия от взрослых - кушает максимум 10 единиц еды,
 # степень счастья  - не меняется, всегда ==100 ;)
 
-# class Child:
-#
-#     def __init__(self):
-#         pass
-#
-#     def __str__(self):
-#         return super().__str__()
-#
-#     def act(self):
-#         pass
-#
-#     def eat(self):
-#         pass
-#
-#     def sleep(self):
-#         pass
+class Child(Man):
+
+    def __init__(self):
+        super().__init__(name=name)
+        self.happiness = 100
+
+    def __str__(self):
+        return super().__str__()
+
+    def act(self):
+        if self.fullness <= 0:
+            cprint('{} умер от голода'.format(self.name), color='red')
+        elif self.fullness <= 10 and self.House.food > 0:
+            self.eat()
+        else:
+            self.sleep()
+
+    # noinspection DuplicatedCode
+    def eat(self):
+        p = randint(5, 10)
+        if p < self.House.food:
+            self.fullness += p
+            self.House.food -= p
+            House.foods += p
+        else:
+            self.fullness += self.House.food
+            # noinspection PyStatementEffect
+            self.House.food == 0
+            House.foods += self.House.food
+        cprint('{} поел'.format(self.name), color='blue')
+
+    def sleep(self):
+        self.fullness -= 10
+        cprint('{} поспал'.format(self.name), color='blue')
 
 
 # TODO после реализации второй части - отдать на проверку учителем две ветки
