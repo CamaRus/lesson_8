@@ -76,6 +76,7 @@ class Man(House):
 
 
 class Husband(Man):
+    happy = 100
 
     def __init__(self, name):
         super().__init__(name=name)
@@ -94,10 +95,11 @@ class Husband(Man):
             self.work()
         elif self.fullness < 15 and self.House.food > 0:
             self.eat()
-        elif self.happiness <= 10 and self.fullness >= 10:
+        elif self.happiness <= 20 and self.fullness >= 10:
             self.gaming()
         if self.House.dirt > 90:
             self.happiness -= 10
+            Husband.happy -= 10
 
     # noinspection DuplicatedCode,PyStatementEffect
     def eat(self):
@@ -121,7 +123,9 @@ class Husband(Man):
     def gaming(self):
         self.fullness -= 10
         self.happiness += 20
+        Husband.happy += 20
         cprint('{} поиграл'.format(self.name), color='blue')
+
 
 
 class Wife(Man):
@@ -139,7 +143,7 @@ class Wife(Man):
             cprint('{} умер от депрессии'.format(self.name), color='red')
         elif self.fullness <= 10 and self.House.food > 0:
             self.eat()
-        elif self.House.dirt > 150:
+        elif Husband.happy < 30:
             self.clean_house()
         elif self.House.food < 40 and self.fullness >= 10:
             self.shopping()
