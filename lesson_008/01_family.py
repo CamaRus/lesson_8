@@ -55,7 +55,7 @@ class House:
         self.cat_food = 30
 
     def __str__(self):
-        return 'Денег - {}, еды - {}, грязи - {}, еды для кота - {}'.format(
+        return 'Денег {}, еды {}, грязи {}, еды для кота {}'.format(
             self.money, self.food, self.dirt, self.cat_food)
 
 
@@ -93,7 +93,7 @@ class Husband(Man):
             cprint('{} умер от депрессии'.format(self.name), color='red')
         elif self.House.money <= 350 and self.fullness >= 15:
             self.work()
-        elif self.fullness < 15 and self.House.food > 0:
+        elif self.fullness <= 10 and self.House.food > 0:
             self.eat()
         elif self.happiness <= 20 and self.fullness >= 10:
             self.gaming()
@@ -182,13 +182,16 @@ class Wife(Man):
         cprint('{} купила шубу'.format(self.name), color='blue')
 
     def clean_house(self):
-        self.House.dirt -= 100
-        self.fullness -= 10
+        if self.House.dirt > 100:
+            self.House.dirt -= 100
+            self.fullness -= 10
+        else:
+            self.House.dirt = 0
         cprint('{} убралась в доме'.format(self.name), color='blue')
 
     def buy_cat_food(self):
         self.House.cat_food += 50
-        self.House.money -= 30
+        self.House.money -= 50
         cprint('{} купила еду для кота'.format(self.name), color='blue')
 
 
@@ -350,6 +353,9 @@ for day in range(365):
     cprint(kolya, color='cyan')
     cprint(murzik, color='cyan')
     cprint(home, color='cyan')
+    cprint('Всего заработано {}'.format(House.money), color='green')
+    cprint('Всего съедено еды {}'.format(House.foods), color='green')
+    cprint('Всего куплено шуб {}'.format(House.fur_coat), color='green')
 # Усложненное задание (делать по желанию)
 #
 # Сделать из семьи любителей котов - пусть котов будет 3, или даже 5-10.
